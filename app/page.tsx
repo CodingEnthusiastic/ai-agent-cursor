@@ -790,7 +790,7 @@ document.addEventListener("DOMContentLoaded", () => {
               variant="outline"
               className="border-white/30 text-white hover:bg-white/10 bg-transparent"
             >
-              Watch Demo
+              Generate Certificate
             </Button>
           </a>
 
