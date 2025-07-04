@@ -784,10 +784,16 @@ document.addEventListener("DOMContentLoaded", () => {
             >
               Start Building Now <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
-            {/* Watch Demo Button - See how the AI website builder works */}
-            <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 bg-transparent">
+            <a href="https://certificategenerate.netlify.app/" target="_blank" rel="noopener noreferrer">
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-white/30 text-white hover:bg-white/10 bg-transparent"
+            >
               Watch Demo
             </Button>
+          </a>
+
           </div>
         </div>
 
