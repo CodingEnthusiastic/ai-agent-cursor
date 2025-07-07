@@ -1,4 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const genAI = new GoogleGenerativeAI({ apiKey: "AIzaSyDMm5gvphiTn0aIv-dpnmq1oQ1fWrW-C4c" });
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,8 +12,34 @@ export async function POST(request: NextRequest) {
     }
 
     // Generate website based on prompt
-    const websiteData = generateWebsiteFromPrompt(prompt)
+    // const websiteData = generateWebsiteFromPrompt(prompt)
+    let websiteData;
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+  const result = await model.generateContent([
+    {
+      role: "user",
+      parts: [
+        {
+          text: `Generate a website from this prompt: "${prompt}". Return a JSON with:
+{
+  "html": "<!DOCTYPE html> ...",
+  "css": "body { ... }",
+  "js": "console.log(...)"
+}`
+        },
+      ],
+    },
+  ]);
+
+  const text = await result.response.text();
+
+  try {
+    websiteData = JSON.parse(text);
+  } catch (e) {
+    console.error("Gemini JSON Parse Error", e);
+    return NextResponse.json({ error: "Gemini failed to return valid JSON" }, { status: 500 });
+  }
     return NextResponse.json(websiteData)
   } catch (error) {
     console.error("Error generating website:", error)
