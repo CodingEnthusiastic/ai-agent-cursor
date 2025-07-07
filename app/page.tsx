@@ -901,8 +901,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 onClick={scrollToPreview}
                 className={
                    activeTab === "preview"
-      ? "bg-black text-white"
-      : "border-white/30 text-white hover:bg-white/10"
+      ? "bg-green text-blue"
+      : "border-white/30 text-red hover:bg-white/10"
                 }
               >
                 <Eye className="w-4 h-4 mr-2" />
