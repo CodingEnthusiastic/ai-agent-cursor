@@ -245,13 +245,32 @@ export default function RishabhsCursor() {
 
     // Generate files based on description (AI simulation happens here)
     // const files = generateWebsiteFiles(projectDescription)
-    const res = await fetch("/api/generate", {
+//     const res = await fetch("/api/generate", {
+//   method: "POST",
+//   headers: { "Content-Type": "application/json" },
+//   body: JSON.stringify({ prompt: projectDescription }),
+// });
+// const filesFromAI = await res.json();
+const res = await fetch("/api/generate", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ prompt: projectDescription }),
 });
+
+if (!res.ok) {
+  const err = await res.json();
+  toast({
+    title: "Failed to generate website...",
+    description: err.error || "Unknown error",
+    variant: "destructive",
+  });
+  setIsBuilding(false);
+  return;
+}
+
 const filesFromAI = await res.json();
 
+    
 const files: GeneratedFile[] = Object.entries(filesFromAI).map(([name, content]) => {
   const ext = name.split(".").pop();
   return {
