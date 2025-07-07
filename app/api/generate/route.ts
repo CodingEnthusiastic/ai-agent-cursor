@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI({ apiKey: "AIzaSyDMm5gvphiTn0aIv-dpnmq1oQ1fWrW-C4c" });
+const genAI = new GoogleGenerativeAI({ apiKey: "AIzaSyAaZooWxlIEf6-_nI61YZyKDMHsn6lj4Nk" });
 
 export async function POST(request: NextRequest) {
   try {
