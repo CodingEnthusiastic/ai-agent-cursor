@@ -244,7 +244,23 @@ export default function RishabhsCursor() {
     }
 
     // Generate files based on description (AI simulation happens here)
-    const files = generateWebsiteFiles(projectDescription)
+    // const files = generateWebsiteFiles(projectDescription)
+    const res = await fetch("/api/generate", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ prompt: projectDescription }),
+});
+const filesFromAI = await res.json();
+
+const files: GeneratedFile[] = Object.entries(filesFromAI).map(([name, content]) => {
+  const ext = name.split(".").pop();
+  return {
+    name,
+    content: content as string,
+    type: ext === "html" ? "html" : ext === "css" ? "css" : "js",
+  };
+});
+
     setGeneratedFiles(files)
 
     // Update preview
